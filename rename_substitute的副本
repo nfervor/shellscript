@@ -22,7 +22,7 @@ rename_series_subtitle(){
   for subtitle_file in "${directory}"/*; do
     # 检查文件扩展名是否为电视节目字幕文件名模式中指定的格式
     if [[ "${subtitle_file,,}" =~ .*\.(srt|ass)$ && "${subtitle_file,,}" =~ .*\.s[0-9]{2,}e[0-9]{2,}.*$ ]]; then
-      if [[ echo ${subtitle_file} | grep -q $match ]]; then
+      if [[ echo "${subtitle_file,,}" | grep -q "${match,,}" ]]; then
         subtitle_extension="${subtitle_file##*.}"  # 获取字幕文件的扩展名
         new_filename="${filename}${lang_subtitle}.${subtitle_extension}"   # 应用字幕文件的扩展名
 
@@ -66,9 +66,9 @@ rename_movies_subtitle(){
 for file in "${directory}"/*; do
   # 检查文件是否是常规文件
   if [ -f "${file}" ]; then
-    echo "${file}"
+    # echo "${file}"
     # 检查文件扩展名是否为电视节目视频文件名模式中指定的格式，${file,,} 将文件名字符串转换为小写，${file^^} 转换为大写
-    if [[ "${file,,}" =~ .*\.(mkv|avi|mp4)$ && "${file,,}" =~ .*\.s[0-9]{2,}e[0-9]{2,}.* ]]; then ## 
+    if [[ "${file,,}" =~ .*\.(mkv|avi|mp4)$ && "${file,,}" =~ .*\.s[0-9]{2,}e[0-9]{2,}.* ]]; then 
       rename_series_subtitle
     # 检查文件扩展名是否为电影视频文件名模式中指定的格式，${file,,} 将文件名字符串转换为小写，${file^^} 转换为大写
     elif [[ "${file,,}" =~ .*\.(mkv|avi|mp4)$ && ! "${file,,}" =~ .*\.s[0-9]{2,}e[0-9]{2,}.*$ ]]; then 
